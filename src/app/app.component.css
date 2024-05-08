@@ -1,0 +1,81 @@
+.left-box input {
+  margin-top: 5%; 
+}
+
+.error-message {
+  color: rgb(243, 33, 33);
+  margin-bottom: 5px;
+}
+
+.error-button {
+  background-color: rgb(243, 33, 33);
+  margin-top: 1.5%;
+}
+
+button{ 
+  font-size: medium;
+}
+
+input{
+  width: 80%;
+  font-size: medium;
+}
+
+.container {
+  background-color: #e9bcea;
+  display: flex;
+  margin: auto;
+  width: 80%;
+  border: 3px solid rgb(50, 17, 55);
+  padding: 10px;
+  margin-top: 5%;
+  border-radius: 25px;
+}
+
+li {
+  border: 1px solid rgb(50, 17, 55);
+  border-radius: 25px; 
+  padding: 5px; 
+  margin-top: 2%;
+}
+
+input, button{ 
+  border-radius: 25px;
+  padding: 5px;
+}
+
+.left-box input, .left-box button {
+  display: block; 
+  margin-bottom: 10px; 
+}
+
+h2{
+  margin-left: 5%;
+}
+.edit{
+  margin-left: 35%; 
+}
+.edit, .delite{
+  margin-top: 2% ;
+  margin-right: 5px;  
+}
+
+li{
+  list-style: none;
+}
+.left-box {
+  width: 40%;
+  margin: 1%; 
+}
+
+.right-box {
+  margin-top: -2%;
+  width: 60%; 
+  float: left;
+}
+
+.notes {
+  text-decoration: none;
+  border-left: 1px solid #000; 
+  padding-left: 5px; 
+}

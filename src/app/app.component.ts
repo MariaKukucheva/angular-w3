@@ -13,41 +13,78 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'angular-w3-2201681061';
 
-  titleN='';
-  content='';
+  clickedItems: boolean[] = [];
+  
   notes: Note[] = [];
   tempTitle: string = '';
   tempContent: string = '';
   selectedNote: Note | null = null;
+  index : number = -1;
 
- 
   errorMessage1: string = '';
   errorMessage2: string = '';
-
-  saveNote() {
-    if (this.tempTitle.trim().length >= 5 && this.tempContent.trim().length >= 7) {
-      this.notes.push({ title: this.tempTitle, content: this.tempContent });
-      this.tempTitle = '';
-      this.tempContent = '';
-      this.titleN='';
-      this.content='';
-      this.errorMessage1 = ''; 
-      this.errorMessage2 = ''; 
-    } else {
-      this.errorMessage1 = 'Заглавието трябва да съдържа поне 5 символа';
-      this.errorMessage2 = 'Съдържанието трябва да съдържа поне 7 символа.';
-    }
+  titleText = '';
+  descText = '';
+ 
+  processInputTitle(event: any) {
+    this.tempTitle = event.target.value;   
   }
 
+  processInputNote(event: any) {
+    this.tempContent = event.target.value;
+  }
 
-  editNote() {
-    
+  private resetTempData() {
+    this.tempTitle = '';
+    this.tempContent  = '';
+  }
+  private dataCheck() {
+    this.errorMessage1 = 'Заглавието трябва да съдържа поне 5 символа';
+    this.errorMessage2 = 'Съдържанието трябва да съдържа поне 7 символа.';
+  }
+
+  saveNote() {
+    if(this.index >= 0)
+    {
+      if(this.tempTitle.trim().length >= 5 && this.tempContent.trim().length >= 7)
+      {
+      this.selectedNote=this.notes[this.index];
+      this.selectedNote.title=this.tempTitle;
+      this.selectedNote.content=this.tempContent;
+      this.index = -1;
+      this.titleText = '';
+      this.descText = '';
+      this.resetTempData();
+      }
+      else
+      {
+        this.dataCheck();
+      }
+    }
+    else 
+    {
+      if (this.tempTitle.trim().length >= 5 && this.tempContent.trim().length >= 7) {
+      this.notes.push({ title: this.tempTitle, content: this.tempContent });
+      this.errorMessage1 = ''; 
+      this.errorMessage2 = '';
+      this.titleText = '';
+      this.descText = '';
+      this.resetTempData();
+      }
+      else {
+        this.dataCheck();
+      }
+  }
+}
+
+  editNote() {    
     if (this.selectedNote) {
-      this.selectedNote.title = this.tempTitle;
-      this.selectedNote.content = this.tempContent;
-      this.selectedNote = null;
-      
-    this.resetTempData();
+      this.tempTitle = this.selectedNote.title;
+      this.tempContent = this.selectedNote.content;
+      this.titleText = this.selectedNote.title;
+      this.descText = this.selectedNote.content;
+      this.index = this.notes.indexOf(this.selectedNote);
+      this.resetTempData();
     }
   }
 
@@ -62,29 +99,19 @@ export class AppComponent {
       }
     }
   }
-
-  selectNote(note: Note) {
+  selectNote(note: Note, index: number) {
     this.tempTitle = note.title;
     this.tempContent = note.content;
     this.selectedNote = note;
-  }
-
-  processInputTitle(event: any) {
-    this.tempTitle = event.target.value;
-    
-  }
-
-  processInputNote(event: any) {
-    this.tempContent = event.target.value;
-  }
-
-  private resetTempData() {
-    this.tempTitle = '';
-    this.tempContent  = '';
-  }
+    this.clickedItems.fill(false);
+    this.clickedItems[index] = true;
+  } 
 }
 
 interface Note {
   title: string;
   content: string;
 }
+
+
+

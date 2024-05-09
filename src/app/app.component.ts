@@ -34,9 +34,13 @@ export class AppComponent {
     this.tempContent = event.target.value;
   }
 
-  private resetTempData() {
+  private resetTempData() { 
     this.tempTitle = '';
     this.tempContent  = '';
+    this.errorMessage1 = ''; 
+    this.errorMessage2 = '';
+    this.titleText = '';
+    this.descText = '';
   }
   private dataCheck() {
     this.errorMessage1 = 'Заглавието трябва да съдържа поне 5 символа';
@@ -52,8 +56,6 @@ export class AppComponent {
       this.selectedNote.title=this.tempTitle;
       this.selectedNote.content=this.tempContent;
       this.index = -1;
-      this.titleText = '';
-      this.descText = '';
       this.resetTempData();
       }
       else
@@ -64,17 +66,14 @@ export class AppComponent {
     else 
     {
       if (this.tempTitle.trim().length >= 5 && this.tempContent.trim().length >= 7) {
-      this.notes.push({ title: this.tempTitle, content: this.tempContent });
-      this.errorMessage1 = ''; 
-      this.errorMessage2 = '';
-      this.titleText = '';
-      this.descText = '';
-      this.resetTempData();
+        this.notes.push({ title: this.tempTitle, content: this.tempContent });
+        this.resetTempData();
       }
       else {
         this.dataCheck();
       }
   }
+  this.clickedItems.fill(false);
 }
 
   editNote() {    
@@ -84,7 +83,6 @@ export class AppComponent {
       this.titleText = this.selectedNote.title;
       this.descText = this.selectedNote.content;
       this.index = this.notes.indexOf(this.selectedNote);
-      this.resetTempData();
     }
   }
 
@@ -93,9 +91,8 @@ export class AppComponent {
       const index = this.notes.indexOf(this.selectedNote);
       if (index !== -1) {
         this.notes.splice(index, 1);
-        this.selectedNote = null;
-        
-    this.resetTempData();
+        this.selectedNote = null;      
+        this.resetTempData();
       }
     }
   }
